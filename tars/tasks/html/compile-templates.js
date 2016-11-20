@@ -11,6 +11,7 @@ const browserSync = tars.packages.browserSync;
 const generateStaticPath = require(`${tars.root}/tasks/html/helpers/generate-static-path`);
 const templaterName = require(`${tars.root}/helpers/get-templater-name`)(tars.config.templater.toLowerCase());
 const templaterIsPugOrJade = templaterName === 'jade' || templaterName === 'pug';
+const beml = require('gulp-beml');
 
 let patterns = [];
 
@@ -205,6 +206,7 @@ module.exports = () => {
                 }
             }))
             .pipe(jadeAndPugInheritanceProcessing())
+            .pipe(beml())
             .pipe(
                 mocksData
                     ? tars.templater.fn(mocksData)
